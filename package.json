@@ -21,8 +21,15 @@
 	},
 	"homepage": "https://github.com/ucheka22/devconnector#readme",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^8.1.0",
 		"express": "^4.17.1",
-		"mongoose": "^5.7.3"
+		"express-validator": "^6.2.0",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.7.3",
+		"passport": "^0.4.0",
+		"passport-jwt": "^4.0.0",
+		"validator": "^11.1.0"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.6.2",
