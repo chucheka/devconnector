@@ -8,7 +8,9 @@
 		"dev": "nodemon --exec babel-node ./api/app.js",
 		"clean": "rm -rf src",
 		"build": "npm run clean && babel api --out-dir src",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"client-install": "npm install --prefeix client",
+		"client": "npm start --prefix client",
+		"start": "concurrently \"npm run client\" \"npm run dev\""
 	},
 	"repository": {
 		"type": "git",
@@ -22,6 +24,7 @@
 	"homepage": "https://github.com/ucheka22/devconnector#readme",
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
+		"concurrently": "^5.0.0",
 		"dotenv": "^8.1.0",
 		"express": "^4.17.1",
 		"express-validator": "^6.2.0",

@@ -1,22 +1,58 @@
-.App {
-  text-align: center;
+:root {
+	--info: #17a2b8;
+	--danger: #dc3545;
+	--primary: #007bff;
+	--success: #28a745;
+	--warning: #ffc107;
+	--light: #f8f9fa;
+	--background-color: #e3f2fd;
+	--dark: #343a40;
+	--muted: #6c757d;
+	--picker: #46e6d0ec;
 }
-
-.App-logo {
-  height: 40vmin;
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: sans-serif;
+	box-sizing: border-box;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+	background-color: #fff;
 }
-
-.App-link {
-  color: #09d3ac;
+.nav-link {
+	color: var(--picker);
+}
+tr {
+	display: flex;
+	vertical-align: middle;
+}
+td {
+	flex: 1;
+	border-bottom: 1px solid var(--info);
+	width: 100%;
+	text-align: start;
+	padding: 8px 0px;
+	vertical-align: middle;
+	color: var(--muted);
+}
+td:nth-child(4) {
+	text-align: end;
+	margin-right: 5px;
+}
+th {
+	flex: 1;
+	border-top: 1px solid var(--info);
+	border-bottom: 1px solid var(--info);
+	width: 100%;
+	vertical-align: middle;
+	padding: 10px 0px;
+	text-align: start;
+	margin-top: 10px;
+	color: var(var(--dark));
+}
+thead {
+	height: 50px;
+}
+tbody {
+	font-size: 14px;
 }

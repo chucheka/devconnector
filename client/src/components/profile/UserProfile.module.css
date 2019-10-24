@@ -1,0 +1,181 @@
+:root {
+	--info: #17a2b8;
+	--danger: #dc3545;
+	--primary: #007bff;
+	--success: #28a745;
+	--warning: #ffc107;
+	--light: #f8f9fa;
+	--background-color: #e3f2fd;
+	--dark: #343a40;
+	--muted: #6c757d;
+	--white: #fff;
+	--darker: #333;
+	--btn: #e5be98;
+	--picker: #fcfdfd;
+	--secondary: #6c757d;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+.section {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.section .profile {
+	width: 80%;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+.section .profile .jumbotron {
+	background-color: var(--info);
+	height: 260px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding-top: 20px;
+	color: var(--light);
+}
+.section .profile .jumbotron .user {
+	display: block;
+	width: 100px;
+	height: 100px;
+	border: none;
+	border-radius: 50%;
+}
+.section .profile .jumbotron .info {
+	margin-top: 10px;
+}
+.section .profile .jumbotron .info .social {
+	display: block;
+	margin: 10px 0px;
+}
+.section .profile .jumbotron .info .small {
+	font-size: 11px;
+}
+.section .profile .jumbotron .info .location {
+	display: block;
+	font-size: 10px;
+	margin: 10px 0px;
+}
+
+.section .profile .jumbotron .info .social img {
+	display: inline-block;
+	margin: 0px 5px;
+}
+.section .summary {
+	background-color: var(--background-color);
+	margin: 10px 0px;
+	height: 240px;
+	padding: 10px;
+}
+.section .summary h3 {
+	text-align: center;
+	margin-bottom: 10px;
+	color: var(--info);
+}
+.section .summary h3 + p {
+	text-align: center;
+}
+.section .summary .skills {
+	border-top: 1px solid var(--info);
+	margin-top: 16px;
+	padding: 10px 0px;
+}
+.section .summary .skills ul {
+	list-style: none;
+	display: flex;
+	height: 100%;
+	margin-top: 20px;
+}
+.section .summary .skills ul li {
+	font-size: 12px;
+	margin-right: 10px;
+}
+.section .details {
+	display: flex;
+}
+.section .details ul {
+	list-style: none;
+	border: 1px var(--info) solid;
+	border-radius: 3px;
+	max-height: 400px;
+	padding: 10px;
+}
+.section .details .experience {
+	flex: 1;
+	margin-right: 8px;
+}
+.section .details .experience ul li {
+	margin-bottom: 10px;
+}
+.description {
+	margin-top: 8px;
+}
+.highlight {
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+}
+.text {
+	font-size: 12px;
+}
+.position {
+	display: inline-block;
+	margin-top: 8px;
+}
+.section .details .education {
+	flex: 1;
+}
+.section .details .education h3,
+.section .details .experience h3 {
+	text-align: center;
+	color: var(--info);
+}
+.section .github h4 {
+	margin: 16px 0px;
+	color: var(--dark);
+}
+.section .github .repos {
+	display: flex;
+	height: 120px;
+	border: 1px var(--info) solid;
+	border-radius: 3px;
+	padding: 10px;
+}
+.section .github .repos .commend,
+.section .github .repos .title {
+	flex: 1;
+}
+.section .github .repos .title span {
+	color: var(--dark);
+	font-size: 16px;
+	padding-bottom: 20px;
+}
+.section .github .repos .title small {
+	color: var(--muted);
+	font-size: 10px;
+}
+.section .github .repos .commend span {
+	display: inline-block;
+	border: none;
+	border-radius: 5px;
+	margin-right: 5px;
+	font-size: 10px;
+	padding: 2px;
+	color: var(--light);
+}
+.stars {
+	background: var(--info);
+}
+.watchers {
+	background: var(--secondary);
+}
+.forks {
+	background: var(--success);
+}

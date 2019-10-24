@@ -21,11 +21,19 @@ mongoose
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const port = process.env.PORT || 8080;
+const port = 8080;
+
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content,Accept,Content-Type,Authorization');
+	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,DELETE,PATCH,OPTIONS');
+	next();
+});
 
 app.use('/api/v1', userRouter);
 app.use('/api/v1', profileRouter);
 app.use('/api/v1', postRouter);
+
 app.listen(port, () => {
 	console.log(`Server started on http://localhost:${port}/api/v1`);
 });

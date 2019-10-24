@@ -10,38 +10,42 @@ class userController {
 	static registerUser(req, res) {
 		const { errors, isValid } = validateRegisterInput(req.body);
 		if (!isValid) {
-			return res.status(400).json(errors);
+			return res.status(400).json(errors, isValid);
 		}
 
-		const { name, email, password, password2, avatar, date } = req.body;
+		const { name, email, password, avatar } = req.body;
 
 		const newUser = new User({
 			name,
 			email,
 			password,
-			avatar,
-			date
+			avatar
 		});
 
-		User.findOne({ email }).then((user) => {
-			if (user) {
-				return res.status(400).json({
-					email: 'Email already exists!!'
+		User.findOne({ email })
+			.then((user) => {
+				if (user) {
+					return res.status(400).json({
+						email: 'Email already exists!!'
+					});
+				}
+				bcrypt.genSalt(10, (err, salt) => {
+					bcrypt.hash(password, salt, (err, hash) => {
+						if (err) throw err;
+						newUser.password = hash;
+						newUser
+							.save()
+							.then((user) => {
+								res.status(201).json(user);
+							})
+							.catch((err) => console.log(err, 'Could not save new user'));
+					});
 				});
-			}
-			bcrypt.genSalt(10, (err, salt) => {
-				bcrypt.hash(password, salt, (err, hash) => {
-					if (err) throw err;
-					newUser.password = hash;
-					newUser
-						.save()
-						.then((user) => {
-							res.status(201).json(user);
-						})
-						.catch((err) => console.log(err));
-				});
+			})
+			.catch((err) => {
+				console.log(err.message);
+				return res.status(500).json(err.message);
 			});
-		});
 	}
 	static loginUser(req, res) {
 		// check if user with email exists
@@ -79,6 +83,7 @@ class userController {
 					}
 				});
 			} else {
+				console.log('djjdddddddddddddd');
 				return res.status(404).json({
 					email: 'User not found'
 				});
