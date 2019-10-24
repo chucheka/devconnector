@@ -1,0 +1,91 @@
+:root {
+	--info: #17a2b8;
+	--danger: #dc3545;
+	--primary: #007bff;
+	--success: #28a745;
+	--warning: #ffc107;
+	--light: #f8f9fa;
+	--background-color: #e3f2fd;
+	--dark: #343a40;
+	--muted: #6c757d;
+	--white: #fff;
+	--darker: #333;
+	--btn: #e5be98;
+	--picker: #fcfdfd;
+	--secondary: #6c757d;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+.container {
+	width: 100%;
+	margin: 24px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.form_container {
+	display: flex;
+	width: 80%;
+	flex-direction: column;
+}
+.form_container h3 {
+	font-size: 2rem;
+	text-align: center;
+	color: var(--info);
+}
+.text {
+	text-align: center;
+}
+.form_container form {
+	width: 100%;
+	margin-top: 20px;
+}
+.form_container form label {
+	color: var(--info);
+}
+.form_container form input[type="text"],
+.form_container form input[type="email"],
+.form_container form input[type="date"],
+.form_container form input[type="password"] {
+	width: 100%;
+	display: block;
+	padding: 8px 12px;
+	margin-bottom: 6px;
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: 1px;
+	border: 1px solid var(--info);
+	border-radius: 5px;
+}
+
+.form_container form textarea {
+	width: 100%;
+	height: 100px;
+	padding: 8px 12px;
+	margin-top: 10px;
+	font-size: 1rem;
+	font-weight: 500;
+	border: 1px solid var(--info);
+	border-radius: 5px;
+}
+.btn {
+	font-weight: bold;
+	font-size: 20px;
+	width: 100%;
+	background-color: var(--info);
+	padding: 10px 0px;
+	border: none;
+	border-radius: 5px;
+	color: var(--light);
+	display: block;
+	margin-top: 20px;
+}
+input::placeholder {
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: var(--muted);
+}
