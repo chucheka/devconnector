@@ -22,30 +22,25 @@ class userController {
 			avatar
 		});
 
-		User.findOne({ email })
-			.then((user) => {
-				if (user) {
-					return res.status(400).json({
-						email: 'Email already exists!!'
-					});
-				}
-				bcrypt.genSalt(10, (err, salt) => {
-					bcrypt.hash(password, salt, (err, hash) => {
-						if (err) throw err;
-						newUser.password = hash;
-						newUser
-							.save()
-							.then((user) => {
-								res.status(201).json(user);
-							})
-							.catch((err) => console.log(err, 'Could not save new user'));
-					});
+		User.findOne({ email }).then((user) => {
+			if (user) {
+				return res.status(400).json({
+					email: 'Email already exists!!'
 				});
-			})
-			.catch((err) => {
-				console.log(err.message);
-				return res.status(500).json(err.message);
+			}
+			bcrypt.genSalt(10, (err, salt) => {
+				bcrypt.hash(password, salt, (err, hash) => {
+					if (err) throw err;
+					newUser.password = hash;
+					newUser
+						.save()
+						.then((user) => {
+							res.status(201).json(user);
+						})
+						.catch((err) => console.log(err, 'Could not save new user'));
+				});
 			});
+		});
 	}
 	static loginUser(req, res) {
 		// check if user with email exists
@@ -71,19 +66,18 @@ class userController {
 							userAvatar: user.avatar
 						};
 						jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '7d' }, (err, token) => {
-							res.json({
-								success: 'Login successful',
+							res.status(200).json({
+								success: 'Login successfully',
 								token: `Bearer ${token}`
 							});
 						});
 					} else {
-						return res.status(404).json({
-							password: 'Password incorrect'
+						return res.status(401).json({
+							message: 'Invalid credentials'
 						});
 					}
 				});
 			} else {
-				console.log('djjdddddddddddddd');
 				return res.status(404).json({
 					email: 'User not found'
 				});
