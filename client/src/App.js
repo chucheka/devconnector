@@ -32,6 +32,7 @@ function App() {
 		<Router>
 			<div className="App">
 				<Navbar />
+				<Route exact path="/" component={DashBoard} />
 				<Route path="/user/signup" component={Signup} />
 				<Route path="/user/signin" component={Signin} />
 				<Route path="/profile/all" component={Profile} />

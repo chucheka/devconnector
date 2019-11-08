@@ -12,9 +12,9 @@ class ProfileController {
 			.then((profile) => {
 				if (!profile) {
 					errors.noprofile = 'There is no profile for this user';
-					res.status(404).json(errors);
+					return res.status(404).json(errors);
 				}
-				res.status(200).json(profile);
+				return res.status(200).json(profile);
 			})
 			.catch((err) => console.log(err));
 	}
@@ -35,27 +35,30 @@ class ProfileController {
 
 	static getByUserId(req, res, next) {
 		const errors = {};
+
+		//This code block does not work as expectedd
 		Profile.findOne({ user: req.params.userId })
 			.populate('user', [ 'name', 'avatar' ])
 			.then((profile) => {
 				if (!profile) {
 					errors.noprofile = 'There is no profile for this user';
-					res.status(404).json(errors);
+					return res.status(404).json(errors);
 				}
-				res.status(200).json(profile);
+				return res.status(200).json(profile);
 			})
 			.catch((err) => console.log(err));
 	}
+
 	//@ route GET /api/v1/profile
 	//@ desc Gets a user profile
-	// @ access Private
+	//@ access Private:This is the private route dashboard
 	static getProfile(req, res, next) {
 		const errors = {};
 		Profile.findOne({ user: req.user.userId })
 			.then((profile) => {
 				if (!profile) {
 					errors.noprofile = 'There is no profile for this user';
-					return res.status(404).json(errors);
+					res.status(403).json(errors);
 				}
 				res.status(200).json(profile);
 			})
@@ -83,7 +86,7 @@ class ProfileController {
 					.then((profile) => res.status(201).json(profile))
 					.catch((err) => res.status(500).json(err));
 			})
-			.catch((err) => rees.status.json(err));
+			.catch((err) => res.status(500).json(err));
 	}
 	//@ route POST /api/v1/profile/education
 	//@ desc adds education to a profile
@@ -99,11 +102,12 @@ class ProfileController {
 		Profile.findOne({ user: userId })
 			.then((profile) => {
 				const newEducation = { school, degree, location, from, to, fieldOfStudy, current, description };
-
 				profile.education.unshift(newEducation);
 				profile
 					.save()
-					.then((profile) => res.status(201).json(profile))
+					.then((profile) => {
+						return res.status(201).json(profile);
+					})
 					.catch((err) => res.status(500).json(err));
 			})
 			.catch((err) => rees.status.json(err));
@@ -154,13 +158,12 @@ class ProfileController {
 			})
 			.catch((err) => res.status(500).json(err));
 	}
-	static createAndUpdateProfile(req, res, next) {
+	static createAndUpdateProfile(req, res) {
 		const { errors, isValid } = validateProfileInput(req.body);
 		if (!isValid) {
 			//Return errors from invalid input(s)
 			return res.status(400).json({ errors });
 		}
-
 		let {
 			handle,
 			status,
@@ -227,7 +230,7 @@ class ProfileController {
 
 		Profile.findOne({ user: userId })
 			.then((profile) => {
-				if (!profile) {
+				if (profile) {
 					// UPDATE
 					Profile.findOneAndUpdate({ user: userId }, { $set: profileFields }, { new: true })
 						.then((profile) =>
@@ -236,7 +239,11 @@ class ProfileController {
 								profile: profile
 							})
 						)
-						.catch((err) => console.log(err));
+						.catch((err) => {
+							return res.status(500).json({
+								error: 'Internal server error'
+							});
+						});
 				} else {
 					//Create Profile
 					// 1).Check if handle already exist
@@ -244,19 +251,38 @@ class ProfileController {
 						.then((profile) => {
 							if (profile) {
 								errors.handle = 'Handle already exists';
-								res.status(400).json(errors);
+								return res.status(400).json(errors);
 							}
 							// 2).Save Profile
+
 							const newProfile = new Profile(profileFields);
 							newProfile
 								.save()
-								.then((profile) => res.status(201).json(profile))
-								.catch((err) => console.log('server error while trying to save newProfile'));
+								.then((profile) => {
+									const { userId } = req.user;
+									return res.status(201).json({
+										profile: profile,
+										Id: userId
+									});
+								})
+								.catch((err) => {
+									return res.status(500).json({
+										error: 'Internal server error'
+									});
+								});
 						})
-						.catch((err) => console.log(err, 'Server could not attempt to find handle'));
+						.catch((err) => {
+							return res.status(500).json({
+								error: 'Internal server error'
+							});
+						});
 				}
 			})
-			.catch((err) => console.log(err, 'server error while trying to find profile'));
+			.catch((err) => {
+				return res.status(500).json({
+					error: 'Internal server error'
+				});
+			});
 	}
 }
 

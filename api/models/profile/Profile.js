@@ -22,7 +22,8 @@ const profileSchema = new Schema({
 		type: String
 	},
 	status: {
-		type: String
+		type: String,
+		requied: true
 	},
 	skills: {
 		type: [ String ],
@@ -57,10 +58,10 @@ const profileSchema = new Schema({
 			},
 			current: {
 				type: String,
-				default: false
+				default: 'false'
 			},
 
-			deascription: {
+			description: {
 				type: String
 			}
 		}
@@ -88,7 +89,7 @@ const profileSchema = new Schema({
 			},
 			current: {
 				type: String,
-				default: false
+				default: 'false'
 			},
 			description: {
 				type: String

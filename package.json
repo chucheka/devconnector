@@ -5,10 +5,12 @@
 	"main": "app.js",
 	"scripts": {
 		"lint": "eslint */*.js --fix",
+		"test": "nyc --reporter=text-summary --reporter=lcov --reporter=text mocha --require @babel/polyfill --require @babel/register test/*.js --no-timeout --exit",
 		"dev": "nodemon --exec babel-node ./api/app.js",
 		"clean": "rm -rf src",
 		"build": "npm run clean && babel api --out-dir src",
 		"client-install": "npm install --prefeix client",
+		"coverage": "nyc report --reporter=text-lcov | coveralls",
 		"client": "npm start --prefix client",
 		"start": "concurrently \"npm run client\" \"npm run dev\""
 	},
@@ -43,9 +45,16 @@
 		"@babel/preset-env": "^7.6.2",
 		"@babel/register": "^7.6.2",
 		"@babel/runtime": "^7.6.2",
+		"@istanbuljs/nyc-config-babel": "^2.1.1",
+		"babel-plugin-istanbul": "^5.2.0",
+		"chai": "^4.2.0",
+		"coveralls": "^3.0.7",
 		"eslint": "^6.5.1",
 		"eslint-config-airbnb-base": "^14.0.0",
 		"eslint-plugin-import": "^2.18.2",
-		"nodemon": "^1.19.3"
+		"mocha": "^6.2.2",
+		"nodemon": "^1.19.3",
+		"nyc": "^14.1.1",
+		"supertest": "^4.0.2"
 	}
 }
